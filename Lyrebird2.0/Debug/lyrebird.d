@@ -1,1 +1,3 @@
-lyrebird.d: ../lyrebird.c
+lyrebird.d: ../lyrebird.c ../Decoder.h
+
+../Decoder.h:
