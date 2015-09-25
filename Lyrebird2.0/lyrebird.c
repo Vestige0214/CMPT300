@@ -3,9 +3,10 @@
 
 const int MAX_TWEET = 140;
 
-int removeEndline(char * a, const int size);
+int findEndline(char * a, const int size);
 int main(int argc, char **argv){
 	if (argc == 3){
+		int a;
 		char tweet[10][MAX_TWEET];
 		int size_argv1 = 0;
 		int size_argv2 = 0;
@@ -16,39 +17,38 @@ int main(int argc, char **argv){
 			perror("Error: ");
 			exit(0);
 		}
-		char output[MAX_TWEET];
-		fgets(output, MAX_TWEET, inputFile);
-		removeEndline(output, MAX_TWEET);
+		char input[MAX_TWEET];
+		int end_index;
+		fgets(input, MAX_TWEET, inputFile);
+		end_index = findEndLine(input, MAX_TWEET);
 
-		printf("Read strings %s\n", output);
+		char line[end_index];
+		for (a = 0; a < end_index; a++){
+			line[a] = input[a];
+			printf("line %d is: %c\n", a, line[a]);
+		}
+		printf("Read strings %s\n", input);
 	}
 }
 
-int removeEndline(char * a, const int size){
+int findEndLine(char a[], const int size){
 	int b;
 	int newLineCaught = 0;
 	for (b = 0; b < size; b++){
-		if (a[b] == "'\'"){
-			newLineCaught++;
-		}
-		if (a[b] == "'n'" && newLineCaught == 1){
-			a[b-1] = "";
-			a[b] = "";
+		if (a[b] == '\n'){
+			return b;
 		}
 	}
 }
-//#include <stdio.h>
-//
-//
-//void Decode(char *c, int *pointer);
-//
-//
-//void Decode(char* c, int *pointer){
-//	int a, b;
-//	for (a = 7; a < *pointer; a+=8){
-//		for (b = a; b < *pointer; b++){
-//			printf("%c", c[b]);
-//		}
-//	}
-//}
+void Decode(char *c, int *pointer);
+
+
+void Decode(char* c, int *pointer){
+	int a, b;
+	for (a = 7; a < *pointer; a+=8){
+		for (b = a; b < *pointer; b++){
+			printf("%c", c[b]);
+		}
+	}
+}
 
