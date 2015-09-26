@@ -20,7 +20,7 @@ int main(int argc, char **argv){
 		}
 		char input[MAX_TWEET];
 		int end_index;
-		fgets(input, MAX_TWEET, inputFile);
+		fgets(input, MAX_TWEET+1, inputFile);
 		end_index = findEndLine(input, MAX_TWEET);
 
 		char line[end_index];
@@ -32,11 +32,9 @@ int main(int argc, char **argv){
 		char decoded_line[end_index];
 		for (a = 0; a < end_index; a++){
 			decoded_line[a] = line[a];
-			printf("decoded_line %d is: %c\n", a, decoded_line[a]);
 		}
 		memset(line, 0, end_index);
-		printf("After decode: %s\n", decoded_line);
-		initialize();
+		initialize(decoded_line, end_index);
 	}
 }
 
@@ -48,7 +46,7 @@ int findEndLine(char a[], const int size){
 			return b;
 		}
 	}
-	return MAX_TWEET;
+	return MAX_TWEET-1;
 }
 
 
