@@ -2,46 +2,10 @@
 #include <time.h>
 #include "decrypt.h"
 #include "memwatch.h"
+#include "Helper.h"
 #define MAX_LENGTH 1024
 
 #define MAX_STR_LEN 165
-
-/* Function for retrieving the current time of the system
- * and deleting the end line at the end
- */
-char* getTimeDecrypt(){
-	time_t t = time(NULL);
-	struct tm *timeStruct;
-	timeStruct = localtime(&t);
-	char *DateTime = asctime(timeStruct);
-	DateTime[strlen(DateTime) - 1] = 0;
-	return DateTime;
-}
-
-/* Wrapper function for fopen that checks for errors and 
- exits gracefully. */
-FILE* myFileOpen(char* filename, char* mode) {
-
-	FILE* file_p = fopen(filename, mode);
-	if (!file_p) {
-		printf("[%s] ERROR: Unable to open file %s\n", getTimeDecrypt(), filename);
-		exit(13);
-	}
-
-	return file_p;
-
-}
-
-/* Wrapper function for fclose that checks for errors and 
- exits gracefully. */
-void myFileClose(FILE* file_p) {
-
-	if (fclose(file_p) != 0) {
-		printf("[%s] ERROR: Unable to close file!\n", getTime());
-		exit(14);
-	}
-
-}
 
 /* Wrapper for fgets that removes the extra newline character */
 void myGetString(char* buffer, FILE* file_p) {
