@@ -2,7 +2,7 @@
 #include <time.h>
 #include "decrypt.h"
 #include "memwatch.h"
-#include "Helper.h"
+#include "helper.h"
 #define MAX_LENGTH 1024
 
 #define MAX_STR_LEN 165

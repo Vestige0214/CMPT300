@@ -40,39 +40,43 @@ int main (int argc, char **argv){
 		if (feof(config_file) == 1){
 			break;
 		}
-		myGetFileName(in_string, out_string, config_file);
-		if (strlen (out_string) == 0 && strlen(in_string) == 0 && feof(config_file))
-			break;
-		pid = fork();
-		if (pid < 0){
-			printf("spawning failed\n");
-		}else if (pid == 0){
-			printf("[%s] Child ID #%d created to decrypt %s.\n", getTime(), getpid(), in_string);
-			decryptor(in_string, out_string);
-			printf("[%s] Decryption of %s complete. Process ID #%d Exiting.\n", getTime(), in_string, getpid());
-			exit(0);
-		}else{
-			memset(out_string, 0, MAX_STR_LEN);
+		while (mode == 0){
+			mode = myGetSchedule(mode, config_file);
 		}
+		printf("what is mode right now? %d\n" mode);
+//		myGetFileName(in_string, out_string, config_file);
+//		if (strlen (out_string) == 0 && strlen(in_string) == 0 && feof(config_file))
+//			break;
+//		pid = fork();
+//		if (pid < 0){
+//			printf("spawning failed\n");
+//		}else if (pid == 0){
+//			printf("[%s] Child ID #%d created to decrypt %s.\n", getTime(), getpid(), in_string);
+//			decryptor(in_string, out_string);
+//			printf("[%s] Decryption of %s complete. Process ID #%d Exiting.\n", getTime(), in_string, getpid());
+//			exit(0);
+//		}else{
+//			memset(out_string, 0, MAX_STR_LEN);
+//		}
 	}
-	fclose(config_file);
-	int status;
-	int i;
-	int true = 1;
-	while (true){
-		int status;
-		pid_t pid = wait(&status);
-		if (pid == -1){
-			if (errno == ECHILD){
-				printf("[%s] All child processes terminated. Parent process ID #%d Exiting\n", getTime(), getpid());
-				break;
-			}
-		}else{
-			if (WIFEXITED(status)){
-				if (WEXITSTATUS(status) != 0){
-					printf("[%s] Child process ID #%d did not terminate successfully.\n", getTime(), pid);
-				}
-			}
-		}
-	}
+//	fclose(config_file);
+//	int status;
+//	int i;
+//	int true = 1;
+//	while (true){
+//		int status;
+//		pid_t pid = wait(&status);
+//		if (pid == -1){
+//			if (errno == ECHILD){
+//				printf("[%s] All child processes terminated. Parent process ID #%d Exiting\n", getTime(), getpid());
+//				break;
+//			}
+//		}else{
+//			if (WIFEXITED(status)){
+//				if (WEXITSTATUS(status) != 0){
+//					printf("[%s] Child process ID #%d did not terminate successfully.\n", getTime(), pid);
+//				}
+//			}
+//		}
+//	}
 }
