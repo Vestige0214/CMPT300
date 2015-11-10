@@ -9,7 +9,7 @@ CCMAIN = main.c
 CC = gcc
 CCOPTS = -g -ansi -Wall -DMEMWATCH -DMW_STDIO
 LIBS = -lm
-OBJS = main.o decrypt.o memwatch.o decryptor.o
+OBJS = main.o decrypt.o memwatch.o decryptor.o helper.o
 CCEXEC = lyrebird
 
 all:	$(CCEXEC)

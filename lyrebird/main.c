@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include "decrypt.h"
 #include "memwatch.h"
+#include "helper.h"
 #include "decryptor.h"
 #define MAX_LENGTH 2049
 #define MAX_PATH 1024
@@ -21,11 +22,9 @@
 int main (int argc, char **argv){
 	pid_t pid;
 
-	//File names
 	char in_string[MAX_PATH] = {0};
 	char out_string[MAX_PATH] = {0};
 
-	//Scheduling status
 	int mode = 0;
 
 	if (argc != 2){
@@ -41,10 +40,6 @@ int main (int argc, char **argv){
 		if (feof(config_file) == 1){
 			break;
 		}
-//		while (mode == 0){
-//
-//			//this is to loop until we find the scheduling mode
-//		}
 		myGetFileName(in_string, out_string, config_file);
 		if (strlen (out_string) == 0 && strlen(in_string) == 0 && feof(config_file))
 			break;
