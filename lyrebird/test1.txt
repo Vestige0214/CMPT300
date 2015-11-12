@@ -1,13 +1,7 @@
-Round Robin
+fcfs
 ./encrypted_files/test6_file1.txt ./your_output/test6_file1.txt
 ./encrypted_files/test6_file2.txt ./your_output/test6_file2.txt
 ./encrypted_files/test6_file3.txt ./your_output/test6_file3.txt
 ./encrypted_files/test6_file4.txt ./your_output/test6_file4.txt
 ./encrypted_files/test6_file5.txt ./your_output/test6_file5.txt
 ./encrypted_files/test6_file6.txt ./your_output/test6_file6.txt
-./encrypted_files/test6_file7.txt ./your_output/test6_file7.txt
-./encrypted_files/test6_file8.txt ./your_output/test6_file8.txt
-./encrypted_files/test6_file9.txt ./your_output/test6_file9.txt
-./encrypted_files/test6_file10.txt ./your_output/test6_file10.txt
-./encrypted_files/test6_file11.txt ./your_output/test6_file11.txt
-./encrypted_files/test6_file12.txt ./your_output/test6_file12.txt

@@ -1,28 +1,34 @@
 #include "helper.h"
 
+/* Wrapper for fgets that removes the extra newline character */
+void myGetString(char* buffer, FILE* file_p, int length) {
+	if (length == 0){
+		length = MAX_LENGTH;
+	}
+	memset(buffer, 0, length);
+	fgets(buffer, length, file_p);
+	if (buffer[strlen(buffer) - 1] == '\n')
+		buffer[strlen(buffer) - 1] = 0;
+}
 
 /*For getting the file paths in the config file
  *
  */
-void myGetFileName(char* buffer_in, char* buffer_out, FILE* file_p) {
+void myGetFileName(char* buffer_in, char* buffer_out, char* line) {
 	memset(buffer_in, 0, MAX_PATH);
 	memset(buffer_out, 0, MAX_PATH);
-	fscanf(file_p, "%s %s", buffer_in, buffer_out);
+	sscanf(line, "%s %s", buffer_in, buffer_out);
 }
 
 int getStatus(char* status_char){
-	if (memcmp(status_char, ROUND_ROBIN, sizeof(ROUND_ROBIN)) == 0){
+	char round[MAX_STATUS_LEN] = ROUND_ROBIN;
+	char fcfs[MAX_STATUS_LEN] = FCFS;
+	if (!memcmp(status_char, round, MAX_STATUS_LEN)){
 		return 1;
-	}else if (memcmp(status_char, FCFS, sizeof(FCFS)) == 0){
+	}else if (!memcmp(status_char, fcfs, MAX_STATUS_LEN)){
 		return 2;
 	}
-}
-
-int myGetSchedule(int* status, FILE* file_p){
-	char status_char[MAX_STATUS_LEN];
-	memset(status_char, 0, MAX_STATUS_LEN);
-	fscanf(file_p, "%s", status_char);
-	return getStatus(status_char);
+	return 0;
 }
 
 /* Wrapper function for fopen that checks for errors and
@@ -74,4 +80,8 @@ char* getTime(){
 	char *DateTime = asctime(timeStruct);
 	DateTime[strlen(DateTime) - 1] = 0;
 	return DateTime;
+}
+
+int length(char* array){
+	return (sizeof(array)/sizeof(array[0]));
 }

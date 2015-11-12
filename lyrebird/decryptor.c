@@ -3,21 +3,13 @@
 #include "decrypt.h"
 #include "memwatch.h"
 #include "helper.h"
+#include "helper.h"
 #define MAX_LENGTH 1024
 
 #define MAX_STR_LEN 165
 
-/* Wrapper for fgets that removes the extra newline character */
-void myGetString(char* buffer, FILE* file_p) {
-
-	memset(buffer, 0, MAX_STR_LEN);
-	fgets(buffer, MAX_STR_LEN, file_p);
-	if (buffer[strlen(buffer) - 1] == '\n')
-		buffer[strlen(buffer) - 1] = 0;
-
-}
-
 int decryptor(char* in_path, char* out_path) {
+
 	FILE* in_file = NULL;
 	FILE* out_file = NULL;
 	char in_string[MAX_STR_LEN] = { 0 };
@@ -33,7 +25,7 @@ int decryptor(char* in_path, char* out_path) {
 	while (feof(in_file) == 0) {
 
 		/* Get encrypted string. */
-		myGetString(in_string, in_file);
+		myGetString(in_string, in_file, MAX_STR_LEN);
 
 		/* If at the end of the file, we get a null string.
 		 Check for this. */

@@ -11,15 +11,17 @@
 
 #define MAX_STR_LEN 165
 
-#define MAX_STATUS_LEN 15
+#define MAX_STATUS_LEN 12
 
 #define ROUND_ROBIN "round robin"
 #define FCFS "fcfs"
 
-void myGetFileName(char* buffer_in, char* buffer_out, FILE* file_p);
+
+void myGetFileName(char* buffer_in, char* buffer_out, char* line);
 int getStatus(char* status_char);
-int myGetSchedule(int* status, FILE* file_p);
+int myGetSchedule(FILE* file_p);
 int fileEmpty(char* path);
 char* getTime();
 FILE* myFileOpen(char* filename, char* mode);
 void myFileClose(FILE* file_p);
+void myGetString(char* buffer, FILE* file_p, int length);
