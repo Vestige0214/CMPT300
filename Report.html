@@ -1,0 +1,54 @@
+<html>
+<head>
+<Title>Assignment 3 HTML Report</Title>
+</head>
+<body bgcolor = white>
+	<h1>Overview</h1>
+	<p>Main.c will make calls to helper.c to format the string for input
+	into the decryptor.c which will then handle the tweet decryption based
+	on each individual input and output string. helper.c is shared among Main.c
+	and decryptor.c and it contains variables and helper methods that is used
+	throughout the program. Any helper function used in more than just one file
+	will be in helper.c</p>
+	<h2>Design and Implementations</h2>
+	<p2>I created two arrays for each child process where one is used to communicate
+	to parent while another is to read messages from parent. The parent process
+	will start off by creating both pipes for each child process. Parent process 
+	will then fork all the child processes necessary since we already know the number
+	of child processes we have to spawn (number of cores). Each child process will then
+	write a message to the parent process through pd[a] where a is the ath child process
+	spawned. Then it will try to read from the parent process's pipe and block if there is nothing.
+	After spawning the child processes the parent process will read in the strings and if
+	the line is round robin or fcfs it will set a variable mode and not run any decryption
+	on that line. The mode variable will determine which method of scheduling we will use.
+	</p2>
+	<p7>String adjustments: Since pipe always have the null termination '\0' in the line I have
+	adjusted the myGetFileName to delete the termination character as to not cause an error to
+	file open.</p7>
+	<p8>Get Status: This is the helper function that is used to find the scheduling algorithm to use.
+	This is checked for every line we read from the file and to return a 1 for round robin, 2 for fcfs and 0
+	if it is a filepath.</p8>
+	<p6>Child Processes: each child process is in a loop of write, read, decrypt. This is to keep
+	the child from closing after one decryption and to let the parent process control when to start
+	shutting down the simulation by sending a signal to all the child processes. This is done since
+	only the parent process knows when the eof is hit therefore it is up to the parent process to also
+	end the child processes after eof is hit.</p6>
+	<p3>Round Robin: I use the variable choose_child to keep looping through the child in order
+	(eg: 1,2,3,1,2,3) and this variable is moduloed based on the number of cores. The parent will
+	then attempt to read from the ready pipe (child write) and once the read is successful it will
+	write to the child then increment.</p3>
+	<p4>fcfs: Here I have explored many solutions including having all child write to one ready pipe.
+	(which failed) My final solution was to have the parent process loop through the ready pipes and 
+	find one which has data then write to that one. The previous number will be remembered, and we will
+	continue from x and continue the loop to look for the next available. This is not exactly first come
+	first serve since the loop is actually looking for the first available and if 2 child are available it
+	will pick the one with the lower spawning order (a from overview).</p4>
+	<p5>To end the simulation, I used the parent process to send an "end" message to all the child processes
+	and child processes' while loops will end when that string is the config line which will close the child process</p5>
+	<p9>Testing: I used the encryption and decryption files provided in the assignment 2 test. I created a file with both
+	round robin and fcfs method for a number of file paths each. Testing for round robin is very straightforward as
+	the order of the child process chosen to run decryption is always the same. For fcfs, I used eclipse's debugger
+	to suspend all processes when we hit a break point and have all child processes stop right before writing to the
+	ready pipe. I let each individual process run to completion in a order I chose then continue on with the parent process.</p9>
+</body>
+</html>

@@ -9,8 +9,8 @@ int main(int argc, char **argv) {
 	char in_string[MAX_PATH] = { 0 };
 	char out_string[MAX_PATH] = { 0 };
 
-	int fd[num_cores - 1][2]; //parent write to child
-	int pd[num_cores-1][2]; //child write to parent as a lineup
+	int fd[num_cores - 1][2];
+	int pd[num_cores-1][2];
 
 	int string_status = 0;
 
@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 	int a;
-	/*Initializing child processes: each will have 2 pipes*/
 	for (a = 0; a < num_cores - 1; a++) {
 		pipe(pd[a]);
 		pipe(fd[a]);
@@ -34,7 +33,7 @@ int main(int argc, char **argv) {
 		} else if (pid == 0) {
 			printf("[%s] Child ID #%d created\n", getTime(), getpid());
 			int buf = a;
-			close(fd[a][1]); //closing write channel
+			close(fd[a][1]);
 			close(pd[a][0]);
 			char config_line[MAX_LENGTH + 1] = { 0 };
 			int true = 1;

@@ -32,3 +32,4 @@
 *.dSYM/
 Debug/
 encrypted_files/
+your_output/
